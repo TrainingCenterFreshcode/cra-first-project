@@ -1,4 +1,5 @@
 import React from "react";
+import UserCard from "./UserCard";
 import { getUsers } from "../../api";
 
 class UserList extends React.Component {
@@ -21,10 +22,12 @@ class UserList extends React.Component {
     }
 
     render() {
-        return (
-            <ul>
+        const { users } = this.state;
 
-            </ul>
+        return (
+            <>
+                {users.length ? <UserCard user={users[0]} /> : null}
+            </>
         )
     }
 }
