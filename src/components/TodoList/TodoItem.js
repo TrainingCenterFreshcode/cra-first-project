@@ -12,3 +12,14 @@ function компонента для айтема (лі з текстом + кн
 5. В компоненті TodoItem зробити виклик колбека і передати йому id (за нтиснення на кнопку)
 
 */
+
+function TodoItem(props) {
+    return (
+        <li>
+            {props.text}         
+            <button onClick={() => {props.delCallback()}}>X</button>
+        </li>
+    );
+}
+
+export default TodoItem;
