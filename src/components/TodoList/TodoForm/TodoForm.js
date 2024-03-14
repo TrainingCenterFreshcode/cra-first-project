@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import styles from './TodoFormStyle.module.css';
+import cx from 'classnames';
 
 // "*" - заборонений символ. Реалізувати валідацію
 
@@ -81,17 +82,17 @@ export default TodoForm;
 */
 
 
-function cx(objectClassNames) {
-    // const cort = Object.entries(objectClassNames);
-    // const filteredArray = cort.filter(([className, condition]) => condition);
-    // const mapArray = filteredArray.map(([className, condition]) => className);
-    // return mapArray.join(' ');
+// function cx(objectClassNames) {
+//     // const cort = Object.entries(objectClassNames);
+//     // const filteredArray = cort.filter(([className, condition]) => condition);
+//     // const mapArray = filteredArray.map(([className, condition]) => className);
+//     // return mapArray.join(' ');
 
-    return Object.entries(objectClassNames)
-    .filter(([className, condition]) => condition)
-    .map(([className, condition]) => className)
-    .join(' ');
-}
+//     return Object.entries(objectClassNames)
+//     .filter(([className, condition]) => condition)
+//     .map(([className, condition]) => className)
+//     .join(' ');
+// }
 
 /*
 
