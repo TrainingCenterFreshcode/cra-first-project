@@ -1,6 +1,7 @@
 import React from "react";
 import UserCard from "./UserCard";
 import { getUsers } from "../../api";
+import HashLoader from "react-spinners/HashLoader";
 
 class UserList extends React.Component {
     constructor(props) {
@@ -9,7 +10,9 @@ class UserList extends React.Component {
         this.state = {
             users: [],
             filteredUsers: [],
-            userCount: 100
+            userCount: 100,
+            isLoading: true,
+            isError: false
         }
     }
 
@@ -21,7 +24,17 @@ class UserList extends React.Component {
 
             this.setState({
                 users: results
-            })
+            });
+        })
+        .catch((error) => {
+            this.setState({
+                isError: error
+            });
+        })
+        .finally(() => {
+            this.setState({
+                isLoading: false
+            });
         });
     }
 
@@ -94,11 +107,21 @@ class UserList extends React.Component {
             this.setState({
                 users: tempArray
             })
+        })
+        .catch((error) => {
+            this.setState({
+                isError: error
+            });
+        })
+        .finally(() => {
+            this.setState({
+                isLoading: false
+            });
         });
     }
 
     render() {
-        const { users } = this.state;
+        const { users, isLoading, isError } = this.state;
 
         return (
             <>
@@ -109,9 +132,12 @@ class UserList extends React.Component {
 
                 <input type="text" placeholder="Search by lastname" onChange={this.handleSearch} />
 
-
                 <button onClick={() => this.clickHandler()}>Add user</button>
-                <section className="card-container">{users.length ? this.renderUsers() : <h2>Users loading...</h2>}</section>
+
+                {isLoading && <HashLoader color="#36d7b7" size={300} cssOverride={{display: "block", margin: "0 auto"}} />}
+                {isError && <h2>{isError.message}</h2>}
+
+                <section className="card-container">{users.length ? this.renderUsers() : null}</section>
             </>
         )
     }
