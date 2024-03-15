@@ -4,11 +4,8 @@ import TodoList from "./TodoList/TodoList";
 
 function App() {
     return (
-        <TodoList />
+        <UserList />
     )
 }
 
 export default App;
-
-
-// name.module.css
