@@ -30,6 +30,14 @@ function App() {
                 toast.success('🦄 Copied to clipboard');
             }}
             >Click to copy text</button>
+
+
+            <button onClick={() => {
+                window.navigator.clipboard.readText()
+                .then((text) => {
+                    console.log(text);
+                });
+            }}>Read text from buffer</button>
         </>
     )
 }
