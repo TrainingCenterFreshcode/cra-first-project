@@ -1,6 +1,4 @@
 import React from "react";
-import PhonesLoader from "./PhonesLoader/PhonesLoader";
-import TVLoader from "./TVLoader/TVLoader";
 import DataProvider from "./DataProvider/DataProvider";
 
 
@@ -28,23 +26,15 @@ function App() {
                     );
                 }}
             </DataProvider>
-        </>
-    )
-}
-
-export default App;
 
 
-
-/*
-
-
-loadData={() => {
-                    return fetch('./phones.json')
-                    .then((response) => response.json())
+            <DataProvider 
+                loadData={() => {
+                        return fetch('./tv.json')
+                        .then((response) => response.json())
                 }} 
-                
-                renderData={(state) => {
+            >
+                {(state) => {
                     const { data, isLoading, isError } = state;
 
                     return (
@@ -53,13 +43,23 @@ loadData={() => {
                             {isError && <div>Error happening: {isError.message}!</div>}
 
                             <ul>
-                                {data.map((data) => <li>Brand: {data.brand} --- Model: {data.model} --- Price: {data.price}</li>)}
+                                {data.map((data, index) => <li key={index}>Brand: {data.brand} --- Model: {data.model} --- Price: {data.price}</li>)}
                             </ul>
                         </>
                     );
                 }}
+            </DataProvider>
+        </>
+    )
+}
+
+export default App;
 
 
+/*
+
+Відобразіть поруч з компонентою телефонів компоненту телевізорів.
+При тому телевізори мають бути у нумерованому списку.
 
 
 */
