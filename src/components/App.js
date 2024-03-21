@@ -1,65 +1,28 @@
 import React from "react";
-import DataProvider from "./DataProvider/DataProvider";
+import Tree from "./Tree/Tree";
+import { UserContext } from '../contexts/userContext'
 
-
-function App() {
-    return (
-        <>
-            <DataProvider 
-                loadData={() => {
-                        return fetch('./phones.json')
-                        .then((response) => response.json())
-                }} 
-            >
-                {(state) => {
-                    const { data, isLoading, isError } = state;
-
-                    return (
-                        <>
-                            {isLoading && <div>Loading....</div>}
-                            {isError && <div>Error happening: {isError.message}!</div>}
-
-                            <ul>
-                                {data.map((data, index) => <li key={index}>Brand: {data.brand} --- Model: {data.model} --- Price: {data.price}</li>)}
-                            </ul>
-                        </>
-                    );
-                }}
-            </DataProvider>
-
-
-            <DataProvider 
-                loadData={() => {
-                        return fetch('./tv.json')
-                        .then((response) => response.json())
-                }} 
-            >
-                {(state) => {
-                    const { data, isLoading, isError } = state;
-
-                    return (
-                        <>
-                            {isLoading && <div>Loading....</div>}
-                            {isError && <div>Error happening: {isError.message}!</div>}
-
-                            <ul>
-                                {data.map((data, index) => <li key={index}>Brand: {data.brand} --- Model: {data.model} --- Price: {data.price}</li>)}
-                            </ul>
-                        </>
-                    );
-                }}
-            </DataProvider>
-        </>
-    )
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            user: {
+                firstName: 'John',
+                lastName: 'Doe',
+                email: 'johndoe@gmail.com',
+                avatar: 'https://cdn.britannica.com/92/212692-050-D53981F5/labradoodle-dog-stick-running-grass.jpg'
+            }
+        }
+    }
+    
+    render() {
+        return (
+            <UserContext.Provider value={this.state.user}>
+                <Tree />
+            </UserContext.Provider>
+        )
+    }
 }
 
 export default App;
-
-
-/*
-
-Відобразіть поруч з компонентою телефонів компоненту телевізорів.
-При тому телевізори мають бути у нумерованому списку.
-
-
-*/
