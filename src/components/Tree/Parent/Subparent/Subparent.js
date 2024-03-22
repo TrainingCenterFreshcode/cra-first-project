@@ -1,7 +1,6 @@
 import React from 'react';
 import Child from './Child/Child';
-import { withTheme } from '../../../../HOC';
-import { UserContext } from '../../../../contexts/userContext';
+import { withTheme, withUser } from '../../../../HOC';
 import CONSTANTS from '../../../../constants';
 const { THEMES } = CONSTANTS;
 
@@ -16,17 +15,10 @@ const Subparent = (props) => { // Тут ми фокусуємось на вир
     </div>)
 }
 
-const SubparentWithThemeAndUser = (props) => { // Компонента, яка займається загортанням в консьюмери
-    return (
-        <UserContext.Consumer>
-            {({user, logOut}) => {
-                const SubparentThemed = withTheme(Subparent)
-                return (
-                    <SubparentThemed user={user} logOut={logOut} />
-                )
-            }}
-        </UserContext.Consumer>
-    )
-}
+// // 1. Огортаємо Сабперента в контекст теми
+// const SubparentWithTheme = withTheme(Subparent);
 
-export default SubparentWithThemeAndUser;
+// // 2. ОГортаємо SubparentWithTheme в контекст юзера
+// const SubparentWithThemeAndUser = withUser(SubparentWithTheme);
+
+export default withUser(withTheme(Subparent));
