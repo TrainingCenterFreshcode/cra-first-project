@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as yup from 'yup';
+import { SIGN_UP_SCHEMA } from '../../schemas';
 
 const initialState = {
     firstName: '',
@@ -8,19 +8,13 @@ const initialState = {
     password: ''
 }
 
-const SIGN_UP_SCHEMA = yup.object({
-    firstName: yup.string().required().min(1).max(50),
-    lastName: yup.string().required().min(1).max(50),
-    email: yup.string().required().email(),
-    password: yup.string().required().matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/)
-});
-
 class SignUpForm extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            ...initialState
+            ...initialState,
+            isError: null
         }
     }
 
@@ -32,12 +26,23 @@ class SignUpForm extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        console.log(SIGN_UP_SCHEMA.isValidSync(this.state)); // Потенційно, тут можна робити запит на сервер
+        
+        try {
+            SIGN_UP_SCHEMA.validateSync(this.state); // Потенційно, тут можна робити запит на сервер
+            
+            this.setState({
+                isError: null
+            });
+        } catch(err) {
+            this.setState({
+                isError: err
+            });
+        }
     }
     
 
     render() {
-        const { email, password, firstName, lastName } = this.state;
+        const { email, password, firstName, lastName, isError } = this.state;
 
         return (
             <form onSubmit={this.submitHandler}>
@@ -70,6 +75,8 @@ class SignUpForm extends Component {
                     onChange={this.changeHandler}
                 />
                 <button>Login</button>
+
+                {isError && <p style={{color: 'red', fontSize: '20px'}}>{isError.message}</p>}
             </form>
         );
     }
@@ -89,5 +96,14 @@ export default SignUpForm;
 Верифікація програмного забезпечення
 
 Коли ми перевіряємо, а як саме реалізовані вимоги клієнта.
+
+*/
+
+
+/*
+
+
+Створити за аналогією компоненту входу.
+Провести валідацію з викорситанням yup
 
 */
