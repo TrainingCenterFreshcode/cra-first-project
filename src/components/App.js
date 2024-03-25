@@ -1,5 +1,6 @@
 import React from "react";
-import SignUpForm from "./LoginForm/LoginForm";
+import NewCounter from "./NewCounter/NewCounter";
+import NewCounterFunction from "./NewCounter/NewCounterFunction";
 
 class App extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class App extends React.Component {
     
     render() {
         return (
-            <SignUpForm />
+            <NewCounterFunction />
         )
     }
 }
