@@ -1,5 +1,5 @@
 import React from "react";
-import MouseTracker from "./MouseTracker/MouseTracker";
+import NewUserList from "./UserList/NewUserList";
 
 class App extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class App extends React.Component {
     
     render() {
         return (
-            <MouseTracker />
+            <NewUserList />
         )
     }
 }
