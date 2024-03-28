@@ -1,27 +1,18 @@
-import React from 'react';
+import { useContext } from 'react';
 import InnerChild from './InnerChild/InnerChild';
-import { withUser } from '../../../../../HOC';
+import { UserContext } from '../../../../../contexts/userContext';
 import styles from './Child.module.css';
 
-const Child = (props) => {
+const Child = () => {
+    const {user: {avatar, firstName, lastName}} = useContext(UserContext);
+    
     return (
         <div className={styles.border}>
             Child
-            <img className={styles.img} src={props.user.avatar} alt={`${props.user.firstName} ${props.user.lastName}`} />
+            <img className={styles.img} src={avatar} alt={`${firstName} ${lastName}`} />
             <InnerChild />
         </div>
     )
 }
 
-export default withUser(Child);
-
-/*
-
-+В компоненті Child відобразити або картинку або прізвище / ім’я
-
-Декомпозиція задачі:
-
-+ 1. Підписатись Consumer до контексту юзера (UserContext)
-+2. В рендер-пропі Consumer витягнути об'єкт юзера і відобразити необхідну інформацію 
-
-*/
+export default Child;
