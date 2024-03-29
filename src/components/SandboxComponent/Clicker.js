@@ -14,11 +14,25 @@ const Clicker = () => {
       setClickCount(clickCount => clickCount + 1);
     }, []);
 
-    const changeHandler = ({target: { value } }) => {
-      setInputValue(Number(value));
-    }
+    // const changeHandler = ({target: { value } }) => {
+    //   setInputValue(Number(value));
+    // }
 
-    const logValueHandler = () => {
+    const changeHandler = useCallback(({target: { value } }) => {
+      setInputValue(Number(value));
+    }, []);
+
+    // const logValueHandler = () => {
+    //   let sum = 0;
+    //   for(let i = 0; i < inputValue; i++) {
+    //     sum += i;
+    //   }
+
+    //   console.log(sum);
+    //   console.log(inputValue);
+    // }
+
+    const logValueHandler = useCallback(() => {
       let sum = 0;
       for(let i = 0; i < inputValue; i++) {
         sum += i;
@@ -26,7 +40,7 @@ const Clicker = () => {
 
       console.log(sum);
       console.log(inputValue);
-    }
+    }, [inputValue]);
 
     return (
         <>
