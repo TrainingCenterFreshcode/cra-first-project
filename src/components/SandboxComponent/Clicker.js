@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 
 const Clicker = () => {
     const [clickCount, setClickCount] = useState(0);
+    const [inputValue, setInputValue] = useState('');
 
     // const clickHandler = () => {
     //     setClickCount(clickCount + 1);
@@ -13,10 +14,26 @@ const Clicker = () => {
       setClickCount(clickCount => clickCount + 1);
     }, []);
 
+    const changeHandler = ({target: { value } }) => {
+      setInputValue(Number(value));
+    }
+
+    const logValueHandler = () => {
+      let sum = 0;
+      for(let i = 0; i < inputValue; i++) {
+        sum += i;
+      }
+
+      console.log(sum);
+      console.log(inputValue);
+    }
+
     return (
         <>
             <h1>{clickCount}</h1>
             <button onClick={clickHandler}>Click</button>
+            <input type='text' value={inputValue} onChange={changeHandler} placeholder='Введіть число, для якого потрібно знайти суму чисел (верхню межу)' />
+            <button onClick={logValueHandler}>Розрахувати суму</button>
         </>
     );
 }
@@ -26,13 +43,8 @@ export default Clicker;
 
 /*
 
-
-const memoizedCallback = useCallback(
-  () => {
-    sum(a, b); a = 5, b = 10; a + b = 15
-  },
-  [a, b],
-);
-
+Використайте useCallback для оптимізації.
+Огорніть logValueHandler та changeHandler у useCallback.
+Використайте вже мемоізовану функцію.
 
 */
