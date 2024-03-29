@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 
 /*
 
@@ -8,44 +8,35 @@ import React, { Component } from 'react';
 
 */
 
-class DataProvider extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            data: [],
-            isLoading: true,
-            isError: false
-        }
-    }
+const useData = (loadData) => {
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
 
-    componentDidMount() {
-        this.load();
-    }
+    useEffect(() => { // componentDidMount
+        loadData()
+            .then((data) => {
+                setData(data);
+            })
+            .catch((error) => {
+                setError(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
 
-    load = () => {
-        this.props.loadData()
-        .then((data) => {
-            this.setState({
-                data
-            });
-        })
-        .catch((error) => {
-            this.setState({
-                isError: error
-            });
-        })
-        .finally(() => {
-            this.setState({
-                isLoading: false
-            });
-        });
-    }
-    
-
-    render() {
-        return this.props.children(this.state);
-    }
+    return {data, isLoading, error};
 }
 
-export default DataProvider;
+
+export default useData;
+
+
+/* Правила хуків.
+
+1. Хук - JS функція (не клас!)
+2. Ім'я хуку має починатися з "use".
+3. У хуках ми можемо використовувати інші хуки.
+
+*/
