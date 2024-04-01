@@ -1,13 +1,11 @@
 import React from "react";
-import PhonesLoader from "./PhonesLoader/PhonesLoader";
-import TVLoader from "./TVLoader/TVLoader";
+import Clicker from "./RegistrationForm/RegistrationForm";
 
 class App extends React.Component {    
     render() {
         return (
             <>
-                <PhonesLoader />
-                <TVLoader />
+                <Clicker />
             </>
         )
     }
